@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Store</title>
+    <link rel="stylesheet" href="store.css">
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+</head>
+<body>
+    <header>
+        <h1>Your Store</h1>
+    </header>
+
+    <section id="about-us">
+        <h2>About Us</h2>
+        <p>At Your store, we are not just a store; we are your one-stop destination for all your grocery needs. From fresh produce to pantry staples, quality meats to household essentials, we have everything you need under one roof.</p>
+        <p>Our goal is simple: to provide you with a convenient and enjoyable shopping experience. With a wide variety of products, competitive prices, and friendly customer service, we are here to make your shopping trips easier and more satisfying.</p>
+        <p>Visit us today and experience the difference at Your store. "Your satisfaction is our priority!"</p>
+    </section>
+
+    <!-- Work Proof Section -->
+    <section id="work-proof">
+        <h2>Direct from Store</h2>
+        <div class="proof-images">
+            <img src="walmart pic 1.jpeg" alt="Store img">
+            <img src="walmart pic 2.jpeg" alt="Store img">
+            <img src="walmart pic 3.jpeg" alt="Store img">
+        </div>
+    </section>
+
+    <section>
+        <div class="product" data-instock="true">
+            <img src="lays pic 1.jpeg" alt="product img">
+            <h2>Korean Barbeque</h2>
+            <p>"Lays Korean Barbeque: savory, tangy, delicious potato chips bursting with flavor."</p>
+            <p>Quantity: 50gms</p>
+            <p>Price: 20Rs</p>
+            <button onclick="openModal(['lays 2.jpeg', 'lays 7.jpeg', 'lays 3.jpeg', 'lays 4.jpeg', 'lays 5.jpeg', 'lays 6.jpeg'])">View</button>
+            <button onclick="addToCart()">Buy Now</button>
+        </div>
+
+        <div class="product" data-instock="true">
+            <img src="Coca Cola.jpeg" alt="product img">
+            <h2>Coca Cola</h2>
+            <p>"Classic Coca-Cola: iconic, fizzy, refreshing cola with a hint of sweetness."</p>
+            <p>Quantity: 300ml</p>
+            <p>Price: 40Rs</p>
+            <button onclick="openModal(['saree2.jpg', 'saree2_2.jpg', 'saree2_3.jpg', 'saree2_4.jpg', 'saree2_5.jpg', 'saree2_6.jpg'])">View</button>
+            <button onclick="addToCart2()">Buy Now</button>
+        </div>
+
+        <div class="product" data-instock="false">
+            <img src="saree3.jpg" alt="product img">
+            <h2>Product</h2>
+            <p>Description of the product: uoygaygoygvgouygogbvogovgougyvoy</p>
+            <p>Price: 00.00</p>
+            <button onclick="openModal(['saree3.jpg', 'saree3_2.jpg', 'saree3_3.jpg', 'saree3_4.jpg', 'saree3_5.jpg', 'saree3_6.jpg'])">View</button>
+            <button>Buy Now</button>
+        </div>
+
+        <div class="product" data-instock="false">
+            <img src="saree4.jpg" alt="product img">
+            <h2>Product</h2>
+            <p>Description of the product: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxhshjsgfk</p>
+            <p>Price: 00.00</p>
+            <button onclick="openModal(['saree4.jpg', 'saree4_2.jpg', 'saree4_3.jpg', 'saree4_4.jpg', 'saree4_5.jpg', 'saree4_6.jpg'])">View</button>
+            <button>Buy Now</button>
+        </div>
+    </section>
+
+    <!-- Modal with Swiper container -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div class="swiper-container">
+                <div class="swiper-wrapper" id="swiperWrapper"></div>
+                <!-- Add navigation buttons -->
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reviews Section -->
+    <section id="reviews">
+        <h2>Customer Reviews</h2>
+        <div id="review-form">
+            <h3>Leave a Review</h3>
+            <form id="commentForm">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="comment">Comment:</label>
+                <textarea id="comment" name="comment" rows="4" required></textarea>
+
+                <button type="button" onclick="submitReview()">Submit Review</button>
+            </form>
+        </div>
+        <div id="comments">
+            <!-- Display customer comments here -->
+        </div>
+    </section>
+
+    <!-- Swiper JS -->
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+    <script>
+        // Updated openModal function to handle both images and videos
+        function openModal(media) {
+            const modal = document.getElementById('myModal');
+            const swiperWrapper = document.getElementById('swiperWrapper');
+
+            // Clear previous swiper slides
+            swiperWrapper.innerHTML = '';
+
+            // Add new swiper slides
+            media.forEach(src => {
+                const slide = document.createElement('div');
+                slide.className = 'swiper-slide';
+
+                // Check if the media is an image or video
+                if (src.endsWith('.mp4')) {
+                    const video = document.createElement('video');
+                    video.src = src;
+                    video.controls = true;
+                    slide.appendChild(video);
+                } else {
+                    const img = document.createElement('img');
+                    img.src = src;
+                    slide.appendChild(img);
+                }
+
+                swiperWrapper.appendChild(slide);
+            });
+
+            // Initialize Swiper
+            const swiper = new Swiper('.swiper-container', {
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+            });
+
+            modal.style.display = 'block';
+        }
+
+        // Close the modal
+        function closeModal() {
+            document.getElementById('myModal').style.display = 'none';
+        }
+
+        // Function to handle the "Add to Cart" button click
+        function addToCart() {
+            // Redirect to the specified URL
+            window.location.href = 'https://forms.gle/FvyFxePxr8C8EzET7';
+        }
+
+        // Array to store customer reviews
+        let reviews = [];
+
+        // Function to submit a review
+        function submitReview() {
+            const name = document.getElementById('name').value;
+            const comment = document.getElementById('comment').value;
+
+            // Check if both name and comment are provided
+            if (name && comment) {
+                // Add the review to the array
+                const newReview = { name, comment };
+                reviews.push(newReview);
+
+                // Save reviews to localStorage
+                saveReviewsToLocal();
+
+                // Display the reviews
+                displayReviews();
+
+                // Clear the form
+                document.getElementById('commentForm').reset();
+            }
+        }
+
+        // Function to display reviews
+        function displayReviews() {
+            const commentsContainer = document.getElementById('comments');
+            commentsContainer.innerHTML = '';
+
+            // Loop through reviews and display them
+            reviews.forEach(review => {
+                const reviewElement = document.createElement('div');
+                reviewElement.className = 'review';
+
+                // Split the comment into lines with a maximum of 15 words per line
+                const words = review.comment.split(' ');
+                let line = '';
+                for (let i = 0; i < words.length; i++) {
+                    line += words[i] + ' ';
+                    if ((i + 1) % 15 === 0 || i === words.length - 1) {
+                        const lineElement = document.createElement('p');
+                        lineElement.innerHTML = line.trim();
+                        reviewElement.appendChild(lineElement);
+                        line = '';
+                    }
+                }
+
+                // Display the reviewer's name
+                    const headerElement = document.createElement('h3');
+                    headerElement.className = 'review-header';
+                    headerElement.innerText = review.name;
+                    reviewElement.insertBefore(headerElement, reviewElement.firstChild);
+
+                    commentsContainer.appendChild(reviewElement);
+                });
+        }
+
+        // Function to save reviews to localStorage
+        function saveReviewsToLocal() {
+            localStorage.setItem('reviews', JSON.stringify(reviews));
+        }
+
+        // Function to retrieve reviews from localStorage
+        function getReviewsFromLocal() {
+            const storedReviews = localStorage.getItem('reviews');
+            if (storedReviews) {
+                reviews = JSON.parse(storedReviews);
+            }
+        }
+
+        // Load reviews from localStorage on page load
+        window.addEventListener('load', function () {
+            getReviewsFromLocal();
+            displayReviews();
+        });
+
+        // Function to clear all reviews
+        function clearReviews() {
+            // Reset the reviews array
+            reviews = [];
+
+            // Save the empty reviews array to localStorage
+            saveReviewsToLocal();
+
+            // Display the updated reviews (empty)
+            displayReviews();
+        }
+
+        // Function to handle the "Add to Cart" button click
+        function addToCart() {
+            // Check if the product is in stock
+            const product = document.querySelector('.product:hover');
+            const inStock = product.dataset.instock === 'true';
+
+            if (inStock) {
+                // Redirect to the specified URL
+                window.location.href = 'https://forms.gle/2TA7nh6J33nkQX1S8';
+            } else {
+                alert('This product is currently out of stock.');
+            }
+        }
+        function addToCart2() {
+            // Check if the product is in stock
+            const product = document.querySelector('.product:hover');
+            const inStock = product.dataset.instock === 'true';
+
+            if (inStock) {
+                // Redirect to the specified URL
+                window.location.href = 'https://forms.gle/Zzy67u1EVdiUZq6VA';
+            } else {
+                alert('This product is currently out of stock.');
+            }
+        }
+
+    </script>
+
+    <footer>
+        <!--<button onclick="clearReviews()">Clear All Reviews</button>-->
+        &copy; 2023 Your Saree Store. All rights reserved.
+    </footer>
+</body>
+</html>
